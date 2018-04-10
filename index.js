@@ -1,5 +1,5 @@
 // JavaScript source code
-define(["require", "exports", "../Domain/MessageObject", "../Domain/MessageObject"], function (require, exports, MessageObject_1, MessageObject_2) {
+define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var APIService = /** @class */ (function () {
@@ -17,28 +17,6 @@ define(["require", "exports", "../Domain/MessageObject", "../Domain/MessageObjec
                 .then(function (response) {
                     return response;
                 }, function (response) { return _this.errorHandling(response); });
-        };
-        APIService.prototype.apiCallErrorCatch = function (program, transaction, record, maxReturnedRecords) {
-            var request = {};
-            var record1 = new M3.MIRecord();
-            request.program = program;
-            request.transaction = transaction;
-            request.record = record1;
-            request.maxReturnedRecords = maxReturnedRecords;
-            return this.miService.executeRequest(request)
-                .then(function (response) {
-                    var messageObject = new MessageObject_1.MessageObject;
-                    messageObject.data = response;
-                    messageObject.hasError = response.hasError();
-                    messageObject.message = new MessageObject_2.Message(100, "Succes");
-                    return messageObject;
-                }, function (response) {
-                    var messageObject = new MessageObject_1.MessageObject;
-                    messageObject.data = response;
-                    messageObject.hasError = response.hasError();
-                    messageObject.message = new MessageObject_2.Message(response.errorCode, response.errorMessage);
-                    return messageObject;
-                });
         };
         APIService.prototype.errorHandling = function (response) {
             var deferred = this.miService.q.defer();
