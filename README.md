@@ -1,0 +1,2 @@
+# ABS
+ABS JavaScript library
